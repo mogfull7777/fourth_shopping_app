@@ -11,6 +11,8 @@ const Profile = () => {
 
             const token = await localStorage.getItem("token");
 
+            console.log("%%%%%%%%%%%%%%%%%",token)
+
             const config = {
                 headers : {
                     authorization : "Bearer " + token.toString()
@@ -23,7 +25,7 @@ const Profile = () => {
 
             if (status === 200) {
 
-                console.log(data)
+                console.log("#############", data)
 
                 setUserInfo(data)
 
@@ -53,3 +55,6 @@ const Profile = () => {
 };
 
 export default Profile;
+
+// 난 백엔드가 아니다 (아직은)
+// api 문서를 안만들고 해보라 함. node.js 를 파악해보아라.

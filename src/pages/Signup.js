@@ -35,7 +35,7 @@ const Signup = () => {
 
             // console.log(signUpList)
 
-            const result = await axios.post("http://localhost:9090/api/users/", signUpList)
+            const result = await axios.post("http://localhost:9090/api/users/", signUpList);
 
 
             if (result.status === 201) {
