@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import login from "./Login";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
+
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -16,6 +19,12 @@ const Signup = () => {
 
         try {
 
+            if (password !== confirmPassword) {
+                alert("password not match.")
+            } else if (thisChackBox === false) {
+                alert("please chack.")
+            }
+
             const signUpList = {
                 name : username,
                 email : email,
@@ -24,7 +33,20 @@ const Signup = () => {
                 thisChackBox : thisChackBox
             };
 
-            console.log(signUpList)
+            // console.log(signUpList)
+
+            const result = await axios.post("http://localhost:9090/api/users/", signUpList)
+
+
+            if (result.status === 201) {
+
+                alert("success signup")
+
+                navigate("/login")
+
+            }
+
+            console.log("++++++++++", result)
 
         } catch (err) {
 

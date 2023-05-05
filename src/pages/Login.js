@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,13 +17,30 @@ const Login = () => {
 
         try {
 
+            if (password === "") {
+                alert("please write password")
+            }
+
             const loginList = {
                 email : email,
                 password : password,
                 thisChackBox : thisChackBox
             }
 
-            console.log(loginList)
+            // console.log(loginList)
+
+            const {data, status} = await axios.post("http://localhost:9090/api/users/login", loginList)
+
+            if (status === 200) {
+                alert("login success")
+
+                localStorage.setItem("token", data.token)
+
+                navigate("/profile")
+
+            }
+
+            console.log("------------",data, status)
 
 
         } catch (err) {
